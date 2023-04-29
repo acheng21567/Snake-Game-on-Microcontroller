@@ -42,6 +42,9 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
+/* Project header files */
+#include "main.h"
+
 TaskHandle_t Task_Blink_LED1_Handle = NULL;
 
 /* ****************************************************************************

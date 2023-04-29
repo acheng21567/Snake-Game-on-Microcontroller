@@ -1,0 +1,33 @@
+/*
+ * task_buzzer.h
+ *
+ *  Created on: Apr 28, 2023
+ *      Author: Alvin Cheng & Sissi Liu
+ */
+
+#ifndef TASK_BUZZER_H_
+#define TASK_BUZZER_H_
+
+#include "main.h"
+
+// Buzzer J4.40 -> P2.7 -> PM_TA0.4
+#define BUZZER_PORT     P2
+#define BUZZER_PIN      BIT7
+#define BUZZER_TIMER    TIMER_A0
+#define BUZZER_CHANNEL  4
+#define TICKS           8000
+
+TaskHandle_t Task_Buzzer_On_Handle;
+
+/**
+ * Initialize the buzzer with 8000 ticks
+ * and 50% duty cycle
+ */
+void buzzer_init(void);
+
+/**
+ * Turn on the buzzer
+ */
+void Task_Buzzer_On(void *pvParameters);
+
+#endif /* TASK_BUZZER_H_ */
