@@ -23,7 +23,12 @@
 #include "task_sensor.h"
 #include "task_accelerometer.h"
 #include "i2c.h"
+#include "lcd.h"
+#include "task_lcd.h"
 
-
+typedef struct{
+    uint8_t board[6][6];
+    uint8_t length;
+} Snake_t;
 
 #endif /* MAIN_H_ */

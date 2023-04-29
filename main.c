@@ -33,52 +33,22 @@
 /*
  *  ======== main_freertos.c ========
  */
-#include "msp.h"
-#include "msp432p401r.h"
-#include <stdint.h>
-#include <stdio.h>
-
-/* RTOS header files */
-#include <FreeRTOS.h>
-#include <task.h>
-
-/* Project header files */
 #include "main.h"
 
-TaskHandle_t Task_Blink_LED1_Handle = NULL;
+// Semaphore for I2C
+SemaphoreHandle_t Sem_i2c;
+// Queue for Snake board and length
+QueueHandle_t Queue;
 
-/* ****************************************************************************
- * This Function initializes the hardware required to blink LED1 on the
- * MSP432 Launchpad
- * ***************************************************************************/
-void blink_led1_hw_init(void){
-    // set direction as an output
-    P1->DIR |= BIT0;
-
-    // Turn off LED
-    P1->OUT &= ~BIT0;
+/**
+ * Initialize all peripherals used
+ */
+void init_all(void){
+    sensor_init();
+    accelerometer_init();
+    buzzer_init();
+    Crystalfontz128x128_Init();
 }
-
-/******************************************************************************
-* Tasked used to blink LED1 on MSP432 Launchpad
-******************************************************************************/
-void Task_Blink_LED1(void *pvParameters){
-    int i;
-    while(1){
-        // turn on the LED
-        P1->OUT |= BIT0;
-
-        // Delay
-        for(i=0; i < 1000000; i++){};
-
-        // turn off the LED
-        P1->OUT &= ~BIT0;
-
-        // Delay
-        for(i=0; i < 1000000; i++){};
-    }
-}
-
 
 /*
  *  ======== main ========
@@ -86,17 +56,61 @@ void Task_Blink_LED1(void *pvParameters){
 int main(void){
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     // stop watchdog timer
 
-    blink_led1_hw_init();
+    // Initialize all peripherals used
+    init_all();
 
-    xTaskCreate
-    (   Task_Blink_LED1,
-        "LED1 Blink Task",
-        configMINIMAL_STACK_SIZE,
-        NULL,
-        1,
-        &Task_Blink_LED1_Handle
-    );
+    __enable_irq();
 
+    // Create the Semaphore used to control the UART
+    Sem_i2c = xSemaphoreCreateBinary();
+
+    // Release I2C semaphore.
+    xSemaphoreGive(Sem_i2c);
+
+    // Initialize Queue with size 2
+    Queue = xQueueCreate(2, sizeof(Snake_t));
+
+
+    // Create all the tasks
+    xTaskCreate(
+            Task_Acceler_Timer,
+            "Task_Acceler_Timer",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            1,
+            &Task_Acceler_Timer_Handle);
+
+    xTaskCreate(
+            Task_Buzzer_On,
+            "Task_Buzzer_On",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            2,
+            &Task_Buzzer_On_Handle);
+
+    xTaskCreate(
+            Task_LCD_Display,
+            "Task_LCD_Display",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            3,
+            &Task_LCD_Display_Handle);
+
+    xTaskCreate(
+            Task_Read_Lux,
+            "Task_Read_Lux",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            4,
+            &Task_Read_Lux_Handle);
+
+    xTaskCreate(
+            Task_Acceler_Bottom_Half,
+            "Task_Acceler_Bottom_Half",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            5,
+            &Task_Acceler_Bottom_Half_Handle);
 
     /* Start the FreeRTOS scheduler */
     vTaskStartScheduler();

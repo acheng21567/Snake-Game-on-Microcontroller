@@ -8,7 +8,6 @@
 #ifndef TASK_SENSOR_H_
 #define TASK_SENSOR_H_
 
-
 #include "main.h"
 
 #define OPT3001_SLAVE_ADDRESS 0x44
@@ -20,12 +19,7 @@
 #define MANUFACTUREID_REG 0x7E
 #define DEVICEID_REG 0x7F
 
-/**
- * Use I2C to initialize sensor
- *
- * Take Semaphore_I2C
- */
-void sensor_init(void);
+TaskHandle_t Task_Read_Lux_Handle;
 
 /**
  * Use I2C to read lux value and change the

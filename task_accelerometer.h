@@ -10,8 +10,23 @@
 
 #include "main.h"
 
+// Accelerometer x: J3.23 -> P6.1 (A14)
+// Accelerometer y: J3.24 -> P4.0 (A13)
+// Accelerometer z: J3.25 -> P4.2 (A11)
+#define ACCER_X_PORT        P6
+#define ACCER_X_PIN         BIT1
+#define ACCER_Y_PORT        P4
+#define ACCER_Y_PIN         BIT0
+#define ACCER_Z_PORT        P4
+#define ACCER_Z_PIN         BIT2
+
 TaskHandle_t Task_Acceler_Timer_Handle;
 TaskHandle_t Task_Acceler_Bottom_Half_Handle;
+
+// Add a global variable that holds the most recent value of the X direction
+extern volatile uint32_t ACCER_X_DIR;
+// Add a global variable that holds the most recent value of the Y direction
+extern volatile uint32_t ACCER_Y_DIR;
 
 /**
  * Initialize the accelerometer
