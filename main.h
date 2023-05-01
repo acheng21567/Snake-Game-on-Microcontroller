@@ -8,6 +8,7 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+
 #include "msp.h"
 #include "msp432p401r.h"
 #include <stdint.h>
@@ -23,13 +24,13 @@
 #include <semphr.h>
 
 /* Project header files */
-#include "task_buzzer.h"
 #include "task_sensor.h"
 #include "task_accelerometer.h"
 #include "i2c.h"
 #include "lcd.h"
 #include "task_lcd.h"
 #include "image.h"
+#include <buzzer.h>
 
 // Semaphore for I2C
 extern SemaphoreHandle_t Sem_i2c;

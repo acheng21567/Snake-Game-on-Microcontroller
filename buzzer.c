@@ -5,7 +5,7 @@
  *      Author: Alvin Cheng & Sissi Liu
  */
 
-#include "task_buzzer.h"
+#include <buzzer.h>
 
 /**
  * Initialize the buzzer with 8000 ticks

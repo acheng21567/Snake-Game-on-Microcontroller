@@ -7,6 +7,7 @@ CMD_SRCS += \
 ../msp432p401r.cmd 
 
 C_SRCS += \
+../buzzer.c \
 /Users/alvinccc/Documents/ECE353/Library/ece353.c \
 ../i2c.c \
 ../image.c \
@@ -15,11 +16,11 @@ C_SRCS += \
 ../startup_msp432p401r_ccs.c \
 ../system_msp432p401r.c \
 ../task_accelerometer.c \
-../task_buzzer.c \
 ../task_lcd.c \
 ../task_sensor.c 
 
 C_DEPS += \
+./buzzer.d \
 ./ece353.d \
 ./i2c.d \
 ./image.d \
@@ -28,11 +29,11 @@ C_DEPS += \
 ./startup_msp432p401r_ccs.d \
 ./system_msp432p401r.d \
 ./task_accelerometer.d \
-./task_buzzer.d \
 ./task_lcd.d \
 ./task_sensor.d 
 
 OBJS += \
+./buzzer.obj \
 ./ece353.obj \
 ./i2c.obj \
 ./image.obj \
@@ -41,11 +42,11 @@ OBJS += \
 ./startup_msp432p401r_ccs.obj \
 ./system_msp432p401r.obj \
 ./task_accelerometer.obj \
-./task_buzzer.obj \
 ./task_lcd.obj \
 ./task_sensor.obj 
 
 OBJS__QUOTED += \
+"buzzer.obj" \
 "ece353.obj" \
 "i2c.obj" \
 "image.obj" \
@@ -54,11 +55,11 @@ OBJS__QUOTED += \
 "startup_msp432p401r_ccs.obj" \
 "system_msp432p401r.obj" \
 "task_accelerometer.obj" \
-"task_buzzer.obj" \
 "task_lcd.obj" \
 "task_sensor.obj" 
 
 C_DEPS__QUOTED += \
+"buzzer.d" \
 "ece353.d" \
 "i2c.d" \
 "image.d" \
@@ -67,11 +68,11 @@ C_DEPS__QUOTED += \
 "startup_msp432p401r_ccs.d" \
 "system_msp432p401r.d" \
 "task_accelerometer.d" \
-"task_buzzer.d" \
 "task_lcd.d" \
 "task_sensor.d" 
 
 C_SRCS__QUOTED += \
+"../buzzer.c" \
 "/Users/alvinccc/Documents/ECE353/Library/ece353.c" \
 "../i2c.c" \
 "../image.c" \
@@ -80,7 +81,6 @@ C_SRCS__QUOTED += \
 "../startup_msp432p401r_ccs.c" \
 "../system_msp432p401r.c" \
 "../task_accelerometer.c" \
-"../task_buzzer.c" \
 "../task_lcd.c" \
 "../task_sensor.c" 
 

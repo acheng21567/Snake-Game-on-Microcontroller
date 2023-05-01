@@ -43,14 +43,14 @@ main.obj: /Users/alvinccc/Documents/ECE353/code-FreeRTOS/FreeRTOSv202212.01/Free
 main.obj: /Users/alvinccc/Documents/ECE353/code-FreeRTOS/FreeRTOSv202212.01/FreeRTOS/Source/include/list.h
 main.obj: /Users/alvinccc/Documents/ECE353/code-FreeRTOS/FreeRTOSv202212.01/FreeRTOS/Source/include/semphr.h
 main.obj: /Users/alvinccc/Documents/ECE353/code-FreeRTOS/FreeRTOSv202212.01/FreeRTOS/Source/include/queue.h
-main.obj: ../task_buzzer.h
-main.obj: ../main.h
 main.obj: ../task_sensor.h
+main.obj: ../main.h
 main.obj: ../task_accelerometer.h
 main.obj: ../i2c.h
 main.obj: ../lcd.h
 main.obj: ../task_lcd.h
 main.obj: ../image.h
+main.obj: /Users/alvinccc/Documents/ECE353/code-FreeRTOS/Project/buzzer.h
 
 ../main.c:
 
@@ -138,11 +138,9 @@ main.obj: ../image.h
 
 /Users/alvinccc/Documents/ECE353/code-FreeRTOS/FreeRTOSv202212.01/FreeRTOS/Source/include/queue.h:
 
-../task_buzzer.h:
+../task_sensor.h:
 
 ../main.h:
-
-../task_sensor.h:
 
 ../task_accelerometer.h:
 
@@ -153,4 +151,6 @@ main.obj: ../image.h
 ../task_lcd.h:
 
 ../image.h:
+
+/Users/alvinccc/Documents/ECE353/code-FreeRTOS/Project/buzzer.h:
 

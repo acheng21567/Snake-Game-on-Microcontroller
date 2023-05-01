@@ -5,8 +5,8 @@
  *      Author: Alvin Cheng & Sissi Liu
  */
 
-#ifndef TASK_BUZZER_H_
-#define TASK_BUZZER_H_
+#ifndef BUZZER_H_
+#define BUZZER_H_
 
 #include "main.h"
 
@@ -31,4 +31,4 @@ void buzzer_init(void);
  */
 void buzzer_on(bool on);
 
-#endif /* TASK_BUZZER_H_ */
+#endif /* BUZZER_H_ */
