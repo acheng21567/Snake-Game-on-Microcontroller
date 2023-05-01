@@ -9,6 +9,7 @@ CMD_SRCS += \
 C_SRCS += \
 /Users/alvinccc/Documents/ECE353/Library/ece353.c \
 ../i2c.c \
+../image.c \
 ../lcd.c \
 ../main.c \
 ../startup_msp432p401r_ccs.c \
@@ -21,6 +22,7 @@ C_SRCS += \
 C_DEPS += \
 ./ece353.d \
 ./i2c.d \
+./image.d \
 ./lcd.d \
 ./main.d \
 ./startup_msp432p401r_ccs.d \
@@ -33,6 +35,7 @@ C_DEPS += \
 OBJS += \
 ./ece353.obj \
 ./i2c.obj \
+./image.obj \
 ./lcd.obj \
 ./main.obj \
 ./startup_msp432p401r_ccs.obj \
@@ -45,6 +48,7 @@ OBJS += \
 OBJS__QUOTED += \
 "ece353.obj" \
 "i2c.obj" \
+"image.obj" \
 "lcd.obj" \
 "main.obj" \
 "startup_msp432p401r_ccs.obj" \
@@ -57,6 +61,7 @@ OBJS__QUOTED += \
 C_DEPS__QUOTED += \
 "ece353.d" \
 "i2c.d" \
+"image.d" \
 "lcd.d" \
 "main.d" \
 "startup_msp432p401r_ccs.d" \
@@ -69,6 +74,7 @@ C_DEPS__QUOTED += \
 C_SRCS__QUOTED += \
 "/Users/alvinccc/Documents/ECE353/Library/ece353.c" \
 "../i2c.c" \
+"../image.c" \
 "../lcd.c" \
 "../main.c" \
 "../startup_msp432p401r_ccs.c" \

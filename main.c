@@ -37,8 +37,38 @@
 
 // Semaphore for I2C
 SemaphoreHandle_t Sem_i2c;
+
 // Queue for Snake board and length
 QueueHandle_t Queue;
+
+/**
+ * Display board
+ * | | | | | | |
+ * | | | | | | |
+ * | | | | | | |
+ * |T|2|H| | | |
+ * | | | | |A| |
+ * | | | | | | |
+ *
+ * Apple = Length + 1
+ * Head = Length
+ * Body = 1 ~ Length - 1
+ * Tail = 1
+ * Nothing = 0
+ */
+uint8_t board[6][6] = {
+                 {0,0,0,0,0,0},
+                 {0,0,0,0,0,0},
+                 {0,0,0,0,0,0},
+                 {1,2,3,0,0,0},
+                 {0,0,0,0,4,0},
+                 {0,0,0,0,0,0}};
+
+// Length of snake
+uint8_t length = 3;
+
+// Speed of snake
+uint8_t speed = 5;
 
 /**
  * Initialize all peripherals used
@@ -68,7 +98,10 @@ int main(void){
     xSemaphoreGive(Sem_i2c);
 
     // Initialize Queue with size 2
-    Queue = xQueueCreate(2, sizeof(Snake_t));
+    Queue = xQueueCreate(2, sizeof(SNAKE_DIR_t));
+
+    // Make the LCD White
+    lcd_draw_rectangle(66, 66, 132,132,LCD_COLOR_WHITE);
 
 
     // Create all the tasks
@@ -79,14 +112,6 @@ int main(void){
             NULL,
             1,
             &Task_Acceler_Timer_Handle);
-
-    xTaskCreate(
-            Task_Buzzer_On,
-            "Task_Buzzer_On",
-            configMINIMAL_STACK_SIZE,
-            NULL,
-            2,
-            &Task_Buzzer_On_Handle);
 
     xTaskCreate(
             Task_LCD_Display,

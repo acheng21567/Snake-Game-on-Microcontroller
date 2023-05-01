@@ -12,6 +12,8 @@ volatile uint32_t ACCER_X_DIR = 0;
 // Add a global variable that holds the most recent value of the Y direction
 volatile uint32_t ACCER_Y_DIR = 0;
 
+SNAKE_DIR_t prev_dir = SNAKE_DIR_RIGHT;
+
 /**
  * Initialize the accelerometer
  */
@@ -59,7 +61,13 @@ void accelerometer_init(void){
  * Start the ADC14 Conversion every 50ms
  */
 void Task_Acceler_Timer(void *pvParameters){
+    while(1){
+        // Start ADC Conversion
+        ADC14->CTL0 |= ADC14_CTL0_SC | ADC14_CTL0_ENC;
 
+        // Delay 50 ms
+        vTaskDelay(pdMS_TO_TICKS(speed * 100));
+    }
 }
 
 /**
@@ -68,12 +76,52 @@ void Task_Acceler_Timer(void *pvParameters){
  * Notified by ADC14_IRQHandler
  */
 void Task_Acceler_Bottom_Half(void *pvParameters){
+    SNAKE_DIR_t dir;
+    while(1){
+        // Wait until we get a task notification from the ADC14 ISR
+        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
+        // Change direction based on accelerometer
+        if(ACCER_X_DIR > VOLT_1P8 && prev_dir % 2 == 1){
+            dir = SNAKE_DIR_RIGHT;
+        }
+        else if(ACCER_X_DIR < VOLT_1P4 && prev_dir % 2 == 1){
+            dir = SNAKE_DIR_LEFT;
+        }
+        else if(ACCER_Y_DIR > VOLT_1P8 && prev_dir % 2 == 0){
+            dir = SNAKE_DIR_UP;
+        }
+        else if(ACCER_Y_DIR < VOLT_1P4 && prev_dir % 2 == 0){
+            dir = SNAKE_DIR_DOWN;
+        }
+        else{
+            dir = prev_dir;
+        }
+
+        // Send queue
+        prev_dir = dir;
+        xQueueSendToBack(Queue, &dir, portMAX_DELAY);
+    }
 }
 
 /*
  * Top Half of ADC14 Handler
  */
 void ADC14_IRQHandler(void){
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
+    // Read the X value
+    ACCER_X_DIR = ADC14->MEM[0];
+
+    // Read the Y value
+    ACCER_Y_DIR = ADC14->MEM[1];
+
+    // Send a task notification to Task_Acceler_Bottom_Half
+    vTaskNotifyGiveFromISR(
+            Task_Acceler_Bottom_Half_Handle,
+            &xHigherPriorityTaskWoken
+    );
+
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 
 }

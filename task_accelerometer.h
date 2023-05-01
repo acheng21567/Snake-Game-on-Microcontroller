@@ -20,6 +20,9 @@
 #define ACCER_Z_PORT        P4
 #define ACCER_Z_PIN         BIT2
 
+#define VOLT_1P4            ((int)(1.4/(3.3/4096)))
+#define VOLT_1P8            ((int)(1.8/(3.3/4096)))
+
 TaskHandle_t Task_Acceler_Timer_Handle;
 TaskHandle_t Task_Acceler_Bottom_Half_Handle;
 

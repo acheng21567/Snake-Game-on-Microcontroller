@@ -22,6 +22,13 @@
 TaskHandle_t Task_Read_Lux_Handle;
 
 /**
+ * Use I2C to initialize sensor
+ *
+ * Take Semaphore_I2C
+ */
+void sensor_init(void);
+
+/**
  * Use I2C to read lux value and change the
  * snake's speed every 50 ms
  *

@@ -39,9 +39,20 @@ void buzzer_init(void){
 }
 
 /**
- * Turn on the buzzer
+ * Turn on buzzer if on is true
+ * Otherwise turn off
  */
-void Task_Buzzer_On(void *pvParameters){
-    // TODO:
-}
+void buzzer_on(bool on){
+    if(on){
+        // Clear current control mode bit
+        BUZZER_TIMER->CTL &= ~TIMER_A_CTL_MC_MASK;
 
+        // Turn on the first TimerA peripheral
+        BUZZER_TIMER->CTL |= TIMER_A_CTL_MC__UP     // Set to UP mode
+                          | TIMER_A_CTL_CLR;        // CLR the current count
+    }
+    else{
+        // Turn off the timer
+        BUZZER_TIMER->CTL &= ~TIMER_A_CTL_MC_MASK;
+    }
+}

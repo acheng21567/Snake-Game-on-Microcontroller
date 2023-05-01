@@ -26,8 +26,9 @@ TaskHandle_t Task_Buzzer_On_Handle;
 void buzzer_init(void);
 
 /**
- * Turn on the buzzer
+ * Turn on buzzer if on is true
+ * Otherwise turn off
  */
-void Task_Buzzer_On(void *pvParameters);
+void buzzer_on(bool on);
 
 #endif /* TASK_BUZZER_H_ */

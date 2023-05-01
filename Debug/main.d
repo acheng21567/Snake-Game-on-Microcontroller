@@ -22,6 +22,14 @@ main.obj: /Applications/ti/ccs/ccs/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 main.obj: /Applications/ti/ccs/ccs/ccs_base/arm/include/system_msp432p401r.h
 main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h
 main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h
+main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h
+main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdlib.h
+main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/time.h
+main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/abi_prefix.h
+main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/xlocale/_time.h
+main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/math.h
+main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_defs.h
+main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_limits.h
 main.obj: /Users/alvinccc/Documents/ECE353/code-FreeRTOS/FreeRTOSv202212.01/FreeRTOS/Source/include/FreeRTOS.h
 main.obj: /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stddef.h
 main.obj: /Users/alvinccc/Documents/ECE353/code-FreeRTOS/Project/FreeRTOSConfig.h
@@ -42,6 +50,7 @@ main.obj: ../task_accelerometer.h
 main.obj: ../i2c.h
 main.obj: ../lcd.h
 main.obj: ../task_lcd.h
+main.obj: ../image.h
 
 ../main.c:
 
@@ -87,6 +96,22 @@ main.obj: ../task_lcd.h
 
 /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h:
 
+/Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h:
+
+/Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdlib.h:
+
+/Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/time.h:
+
+/Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/abi_prefix.h:
+
+/Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/xlocale/_time.h:
+
+/Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/math.h:
+
+/Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_defs.h:
+
+/Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_limits.h:
+
 /Users/alvinccc/Documents/ECE353/code-FreeRTOS/FreeRTOSv202212.01/FreeRTOS/Source/include/FreeRTOS.h:
 
 /Applications/ti/ccs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stddef.h:
@@ -126,4 +151,6 @@ main.obj: ../task_lcd.h
 ../lcd.h:
 
 ../task_lcd.h:
+
+../image.h:
 
