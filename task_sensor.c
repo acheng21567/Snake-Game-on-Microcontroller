@@ -32,11 +32,16 @@ void Task_Read_Lux(void *pvParameters){
         uint16_t result = i2c_read_16(OPT3001_SLAVE_ADDRESS, RESULT_REG);
         float lux = 0.01 * powf(2, result >> 12) * (result & 0x0FFF);
 
+        // Snake moves faster if dark
         if(lux < 200.0){
             speed = 2;
         }
+        // Snake moves faster if dark
         else if (lux > 500.0){
             speed = 8;
+        }
+        else{
+            speed = 5;
         }
 
         // Give the I2C Semaphore

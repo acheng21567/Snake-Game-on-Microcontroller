@@ -17,6 +17,8 @@ void create_apple(){
     srand((unsigned) time(&t));
 
     uint8_t num = rand() % 36;
+
+    // Make sure the apple is not created on snake
     while(board[num/6][num%6] != 0){
         num = rand() % 36;
     }
@@ -30,8 +32,10 @@ void snake_move(SNAKE_DIR_t dir){
     uint8_t next_head_pos[2];
     uint8_t tail[2];
     int i,j;
+
     for(i = 0; i < 6; i++){
         for(j = 0; j < 6; j++){
+            // Determine the next head position based on direction
             if(board[i][j] == length){
                 if(dir == SNAKE_DIR_RIGHT){
                     next_head_pos[0] = i;
@@ -50,17 +54,24 @@ void snake_move(SNAKE_DIR_t dir){
                     next_head_pos[1] = j;
                 }
             }
+
+            // Record tail position for future use
             if(board[i][j] == 1){
                 tail[0] = i;
                 tail[1] = j;
             }
+
+            // Reduce number by 1 for snake
             if(board[i][j] != 0 && board[i][j] != length + 1){
                 board[i][j]--;
             }
         }
     }
+
+    // If we get the orange
     if(board[next_head_pos[0]][next_head_pos[1]] == length + 1){
         board[next_head_pos[0]][next_head_pos[1]] = length;
+        // Increase snake length
         length++;
         for(i = 0; i < 6; i++){
             for(j = 0; j < 6; j++){
@@ -69,9 +80,12 @@ void snake_move(SNAKE_DIR_t dir){
                 }
             }
         }
+        // Recreate the apple randomly
         create_apple();
+        // Add back the tail
         board[tail[0]][tail[1]] = 1;
     }
+    // Game end if we touch the snake's body
     else if(board[next_head_pos[0]][next_head_pos[1]] != 0){
         buzzer_on(true);
     }
@@ -121,8 +135,10 @@ void Task_LCD_Display(void *pvParameters){
         // Wait until we receive a message from accelerometer
         xQueueReceive(Queue, &dir, portMAX_DELAY);
 
+        // Move the snake based on direction
         snake_move(dir);
 
+        // Update the board
         draw_board();
 
         // Give the I2C Semaphore
