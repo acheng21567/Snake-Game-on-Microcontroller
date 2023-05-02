@@ -28,7 +28,7 @@
 #define LCD_COLOR_BLACK     0x0000
 #define LCD_COLOR_WHITE     0xFFFF
 #define LCD_COLOR_RED       0xF800
-#define LCD_COLOR_ORANGE    0xFBE4
+#define LCD_COLOR_GREEN     0x07E0
 
 TaskHandle_t Task_LCD_Display_Handle;
 

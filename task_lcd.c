@@ -97,7 +97,7 @@ void snake_move(SNAKE_DIR_t dir){
 /**
  * Draw the board based on current board
  */
-void draw_board(void){
+void draw_board(SNAKE_DIR_t dir){
     uint8_t i, j;
 
     // Draw Horizontal and Vertical Lines
@@ -111,11 +111,39 @@ void draw_board(void){
         for(j = 0; j < 6; j++){
             int x = SCREEN_ROW_POS * j + IMAGE_OFFSET;
             int y = SCREEN_COL_POS * i + IMAGE_OFFSET;
-            int color = (board[i][j] == 0 || board[i][j] == length+1) ? 0xFFFF : (board[i][j] == 1) ? 0x001F : (board[i][j] == length) ? 0x07FF : 0xFFE0;
+            int color = (board[i][j] <= 1 || board[i][j] >= length) ? LCD_COLOR_WHITE : LCD_COLOR_GREEN;
             lcd_draw_rectangle(x,y,IMAGE_SIZE,IMAGE_SIZE,color);
 
             if(board[i][j] == length + 1){
                 lcd_draw_image(x, y, ORANGE_SIZE, ORANGE_SIZE, orangeBitmaps, LCD_COLOR_RED, LCD_COLOR_WHITE);
+            }
+            else if(board[i][j] == length){
+                if(dir == SNAKE_DIR_RIGHT){
+                    lcd_draw_image(x, y, IMAGE_SIZE, IMAGE_SIZE, headBitmapsRight, LCD_COLOR_GREEN, LCD_COLOR_WHITE);
+                }
+                else if(dir == SNAKE_DIR_UP){
+                    lcd_draw_image(x, y, IMAGE_SIZE, IMAGE_SIZE, headBitmapsUp, LCD_COLOR_GREEN, LCD_COLOR_WHITE);
+                }
+                else if(dir == SNAKE_DIR_LEFT){
+                    lcd_draw_image(x, y, IMAGE_SIZE, IMAGE_SIZE, headBitmapsLeft, LCD_COLOR_GREEN, LCD_COLOR_WHITE);
+                }
+                else{
+                    lcd_draw_image(x, y, IMAGE_SIZE, IMAGE_SIZE, headBitmapsDown, LCD_COLOR_GREEN, LCD_COLOR_WHITE);
+                }
+            }
+            if(board[i][j] == 1){
+                if(board[(i+1)%6][j] == 2){
+                    lcd_draw_image(x, y, IMAGE_SIZE, IMAGE_SIZE, tailBitmapsDown, LCD_COLOR_GREEN, LCD_COLOR_WHITE);
+                }
+                else if(board[(i+5)%6][j] == 2){
+                    lcd_draw_image(x, y, IMAGE_SIZE, IMAGE_SIZE, tailBitmapsUp, LCD_COLOR_GREEN, LCD_COLOR_WHITE);
+                }
+                else if(board[i][(j+1)%6] == 2){
+                    lcd_draw_image(x, y, IMAGE_SIZE, IMAGE_SIZE, tailBitmapsRight, LCD_COLOR_GREEN, LCD_COLOR_WHITE);
+                }
+                else{
+                    lcd_draw_image(x, y, IMAGE_SIZE, IMAGE_SIZE, tailBitmapsLeft, LCD_COLOR_GREEN, LCD_COLOR_WHITE);
+                }
             }
         }
     }
@@ -139,7 +167,7 @@ void Task_LCD_Display(void *pvParameters){
         snake_move(dir);
 
         // Update the board
-        draw_board();
+        draw_board(dir);
 
         // Give the I2C Semaphore
         xSemaphoreGive(Sem_i2c);
