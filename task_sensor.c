@@ -26,9 +26,6 @@ void sensor_init(void){
  */
 void Task_Read_Lux(void *pvParameters){
     while(1){
-        // Take the I2C Semaphore
-        xSemaphoreTake(Sem_i2c, portMAX_DELAY);
-
         uint16_t result = i2c_read_16(OPT3001_SLAVE_ADDRESS, RESULT_REG);
         float lux = 0.01 * powf(2, result >> 12) * (result & 0x0FFF);
 
@@ -43,9 +40,6 @@ void Task_Read_Lux(void *pvParameters){
         else{
             speed = 5;
         }
-
-        // Give the I2C Semaphore
-        xSemaphoreGive(Sem_i2c);
 
         // Delay 50ms
         vTaskDelay(pdMS_TO_TICKS(50));

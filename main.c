@@ -35,9 +35,6 @@
  */
 #include "main.h"
 
-// Semaphore for I2C
-SemaphoreHandle_t Sem_i2c;
-
 // Queue for Snake board and length
 QueueHandle_t Queue;
 
@@ -90,12 +87,6 @@ int main(void){
     init_all();
 
     __enable_irq();
-
-    // Create the Semaphore used to control the UART
-    Sem_i2c = xSemaphoreCreateBinary();
-
-    // Release I2C semaphore.
-    xSemaphoreGive(Sem_i2c);
 
     // Initialize Queue with size 2
     Queue = xQueueCreate(2, sizeof(SNAKE_DIR_t));

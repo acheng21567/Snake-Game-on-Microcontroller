@@ -32,9 +32,6 @@
 #include "image.h"
 #include <buzzer.h>
 
-// Semaphore for I2C
-extern SemaphoreHandle_t Sem_i2c;
-
 // Queue for Snake board and length
 extern QueueHandle_t Queue;
 

@@ -157,9 +157,6 @@ void draw_board(SNAKE_DIR_t dir){
 void Task_LCD_Display(void *pvParameters){
     SNAKE_DIR_t dir;
     while(1){
-        // Take the I2C Semaphore
-        xSemaphoreTake(Sem_i2c, portMAX_DELAY);
-
         // Wait until we receive a message from accelerometer
         xQueueReceive(Queue, &dir, portMAX_DELAY);
 
@@ -168,9 +165,6 @@ void Task_LCD_Display(void *pvParameters){
 
         // Update the board
         draw_board(dir);
-
-        // Give the I2C Semaphore
-        xSemaphoreGive(Sem_i2c);
     }
 }
 
