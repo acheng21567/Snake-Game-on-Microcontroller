@@ -24,4 +24,6 @@ extern const uint8_t tailBitmapsUp[];
 extern const uint8_t tailBitmapsLeft[];
 extern const uint8_t tailBitmapsDown[];
 
+extern const uint8_t game_overBitmaps[];
+
 #endif /* IMAGE_H_ */

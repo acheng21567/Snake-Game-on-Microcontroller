@@ -26,6 +26,42 @@ void create_apple(){
 }
 
 /**
+ * Action when the snake die
+ */
+void game_over(){
+    // Turn on the buzzer and output game over message
+    buzzer_on(true);
+    lcd_draw_image(SCREEN_ROW_CENTER, SCREEN_COL_CENTER, 120, 120, game_overBitmaps, LCD_COLOR_RED, LCD_COLOR_WHITE);
+
+    while(1){
+        // Restart the game if s2 button pressed
+        if(S2_pressed()){
+            int i, j;
+            for(i = 0; i < 6; i++){
+                for(j = 0; j < 6; j++){
+                    board[i][j] = 0;
+                }
+            }
+            board[3][0] = 1;
+            board[3][1] = 2;
+            board[3][2] = 3;
+            length = 3;
+            speed = 5;
+
+            // Randomly create apple
+            create_apple();
+
+            // Turn off the buzzer
+            buzzer_on(false);
+
+            // Make the LCD White
+            lcd_draw_rectangle(66, 66, 132,132,LCD_COLOR_WHITE);
+            break;
+        }
+    }
+}
+
+/**
  * Move the snake based on the direction
  */
 void snake_move(SNAKE_DIR_t dir){
@@ -87,7 +123,7 @@ void snake_move(SNAKE_DIR_t dir){
     }
     // Game end if we touch the snake's body
     else if(board[next_head_pos[0]][next_head_pos[1]] != 0){
-        buzzer_on(true);
+        game_over();
     }
     else{
         board[next_head_pos[0]][next_head_pos[1]] = length;

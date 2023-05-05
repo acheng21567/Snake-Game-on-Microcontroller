@@ -30,7 +30,24 @@
 #define LCD_COLOR_RED       0xF800
 #define LCD_COLOR_GREEN     0x07E0
 
+/**
+ *       1
+ *  2  Head  0
+ *       3
+ */
+typedef enum {
+    SNAKE_DIR_RIGHT,
+    SNAKE_DIR_UP,
+    SNAKE_DIR_LEFT,
+    SNAKE_DIR_DOWN,
+} SNAKE_DIR_t;
+
 TaskHandle_t Task_LCD_Display_Handle;
+
+/**
+ * Draw the board based on current board
+ */
+void draw_board(SNAKE_DIR_t dir);
 
 /**
  * Display the board every 100 ms

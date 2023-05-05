@@ -45,15 +45,8 @@ extern uint8_t length;
 extern uint8_t speed;
 
 /**
- *       1
- *  2  Head  0
- *       3
+ * Debounce S2 and return true if S2 is pressed
  */
-typedef enum {
-    SNAKE_DIR_RIGHT,
-    SNAKE_DIR_UP,
-    SNAKE_DIR_LEFT,
-    SNAKE_DIR_DOWN,
-} SNAKE_DIR_t;
+bool S2_pressed();
 
 #endif /* MAIN_H_ */

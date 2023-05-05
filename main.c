@@ -75,6 +75,31 @@ void init_all(void){
     accelerometer_init();
     buzzer_init();
     Crystalfontz128x128_Init();
+    // Initialize S2 button
+    P3->DIR &= ~BIT5;
+}
+
+/**
+ * Debounce S2 and return true if S2 is pressed
+ */
+bool S2_pressed(){
+    static uint8_t debounce_state = 0x00;
+
+    // Shift the de-bounce variable to the left
+    debounce_state = debounce_state << 1;
+
+    // If S2 is being pressed, set the LSBit of debounce_state to a 1;
+    if((P3->IN & BIT5) == 0){
+        debounce_state |= 0x01;
+    }
+
+    // If the de-bounce variable is equal to 0x7F, change the color of the tri-color LED.
+    if(debounce_state == 0x7F){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 /*
@@ -94,6 +119,12 @@ int main(void){
     // Make the LCD White
     lcd_draw_rectangle(66, 66, 132,132,LCD_COLOR_WHITE);
 
+    draw_board(SNAKE_DIR_RIGHT);
+    while(1){
+        if(S2_pressed()){
+            break;
+        }
+    }
 
     // Create all the tasks
     xTaskCreate(
